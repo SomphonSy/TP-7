@@ -1,0 +1,62 @@
+:root {
+  --back-color: slategray;
+  --modal-close-hover-color: transparent;
+  --modal-close-color: black;
+}
+
+.card {
+    --modal-close-color: var(--card-fore-color)
+}
+
+body {
+	cursor: default;
+}
+a {
+	cursor: pointer;
+}
+table:not(.horizontal) {
+	max-height: none;
+}
+#version {
+	font-size: 0.75rem;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	margin: 0.25rem;
+}
+.screen-centered {
+	position: fixed;
+	left: 50%;
+    top:50%;
+	transform: translate(-50%, -50%);
+}
+
+#body-connexion form {
+    margin:0;
+}
+#body-connexion form label {
+    display: inline-block;
+    width: 6rem;
+}
+#body-connexion input {
+    width: 15rem;
+}
+#body-connexion #login {
+    float: right;
+    margin: calc(0.5 * var(--universal-margin));
+}
+@media screen and (max-width: 768px) {
+   #body-connexion #login {
+   float: none;
+    margin: calc(0.5 * var(--universal-margin));
+    margin-top: calc(3 * var(--universal-margin));
+    }
+}
+
+header .button {
+    text-transform: none;
+}
+
+.card .modal-close:hover::before, .card .modal-close:focus::before {
+    font-weight: bold !important;
+}
