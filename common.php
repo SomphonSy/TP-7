@@ -28,9 +28,14 @@ function sql_log($query){
     }
 }
 
-function sql_select($database,$select) {
-    sql_log($select);
-    $results = $database->query($select);
+function sql_select($database,$select,$data) {
+    #$results = $database->query($select);
+    $stmt = $database->prepare($select);
+    foreach($data as $key => $value){
+        $stmt->bindValue($key,$value[0],$value[1]);
+    }
+    $results = $stmt->execute();
+    sql_log($stmt->getSQL(true));
     $rows=[];
     while ($row = $results->fetchArray(SQLITE3_ASSOC)) {
         $rows[] = $row;

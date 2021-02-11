@@ -71,9 +71,10 @@ END;
 
 function user_state($database) {
     $user_state_query = <<<END
-SELECT * FROM user WHERE user = '{$_POST['user']}'
+SELECT * FROM user WHERE user = :user
 END;
-    $user_state = sql_select($database,$user_state_query);
+    $data["user"]=array($_POST['user'],SQLITE3_TEXT);
+    $user_state = sql_select($database,$user_state_query,$data);
     if (count($user_state) === 0) {
         return FALSE;
     }
@@ -82,9 +83,13 @@ END;
 
 function user_access($database) {
     $user_access_query = <<<END
-SELECT * FROM user WHERE user = '{$_POST['user']}' AND password =  '{$_POST['password']}' AND blocked = 0
+SELECT * FROM user WHERE user = :user AND password = :password AND blocked = 0
 END;
-    $sql_result=sql_select($database,$user_access_query);
+    $data=[];
+    $data[":user"]=array($_POST['user'],SQLITE3_TEXT);
+    $data[":password"]=array($_POST['password'],SQLITE3_TEXT);
+
+    $sql_result=sql_select($database,$user_access_query,$data);
     if ($sql_result) {
         //return sql_select($database,$user_access_query)[0];
         return $sql_result[0];
